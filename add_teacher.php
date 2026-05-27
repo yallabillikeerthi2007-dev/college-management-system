@@ -408,7 +408,7 @@ th,td{
 
     <center>
 
-        <a href="index.php" class="back-btn">
+        <a href="teacher_index.php" class="back-btn">
             Back to Home
         </a>
 

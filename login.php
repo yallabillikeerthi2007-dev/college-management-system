@@ -1,40 +1,67 @@
 <?php
+
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 session_start();
 
-$con = mysqli_connect("localhost","root","","college_management");
+include 'dbl.php';
 
-if(!$con){
-    die("Database connection failed");
-}
+if(isset($_POST['login'])){
 
-$role     = $_POST['role'];
-$username = trim($_POST['username']);
-$pinno    = trim($_POST['pinno']);   // password place lo pinno
+    $username = trim($_POST['username']);
 
-$sql = "SELECT * FROM users 
-        WHERE role='$role'
-        AND LOWER(username)=LOWER('$username')
-        AND LOWER(pinno)=LOWER('$pinno')";
+    $password = trim($_POST['password']);
 
-$result = mysqli_query($con,$sql);
+    if(empty($username) || empty($password)){
 
-if(mysqli_num_rows($result) > 0){
+        die("Please fill all fields");
 
-    $row = mysqli_fetch_assoc($result);
-
-    $_SESSION['username'] = $row['username'];
-    $_SESSION['role'] = $row['role'];
-    $_SESSION['pinno'] = $row['pinno'];
-
-    if($row['role'] == "admin"){
-        header("Location: admin_dashboard.php");
-    } 
-    else{
-        header("Location: student_dashboard.php");
     }
-    exit();
-}
-else{
-    echo "<script>alert('Invalid Login Details'); window.location='index.php';</script>";
+
+    $stmt = $conn->prepare("SELECT * FROM students WHERE username=?");
+
+    if(!$stmt){
+
+        die("Query Failed");
+    }
+
+    $stmt->bind_param("s", $username);
+
+    $stmt->execute();
+
+    $result = $stmt->get_result();
+
+    if($result->num_rows > 0){
+
+        $row = $result->fetch_assoc();
+
+        if(password_verify($password, $row['password'])){
+
+            $_SESSION['student_logged_in'] = true;
+
+            $_SESSION['student_username'] = $row['username'];
+
+            $_SESSION['student_pin'] = $row['pin'];
+
+            $_SESSION['student_name'] = $row['name'];
+
+            header("Location: dashboard.php");
+
+            exit();
+
+        }else{
+
+            die("Wrong Password");
+        }
+
+    }else{
+
+        die("Student Not Found");
+    }
+
+}else{
+
+    die("Invalid Request");
 }
 ?>

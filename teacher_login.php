@@ -9,7 +9,7 @@ if(isset($_SESSION["teacher_logged_in"]))
     exit();
 }
 
-include "db_connect.php";
+include "db.php";
 
 $error = "";
 
@@ -20,7 +20,7 @@ if(isset($_POST["login"]))
     $teacher_id=$_POST["teacher_id"];
     $password=$_POST["password"];
 
-    $result=mysqli_query($conn,
+    $result=mysqli_query($con,
     "SELECT * FROM students
      WHERE student_id='$student_id'");
 

@@ -1,6 +1,6 @@
 <?php
 error_reporting(0);
-include "db_connect.php";
+include "db.php";
 
 if(isset($_POST["assign"]))
 {
@@ -20,13 +20,13 @@ if(isset($_POST["assign"]))
     '$year',
     '$subject_name')";
 
-    mysqli_query($conn,$insert);
+    mysqli_query($con,$insert);
 
     echo "<script>alert('Subject Assigned Successfully')</script>";
 }
 
-$teachers=mysqli_query($conn,"SELECT * FROM teachers");
-$subjects=mysqli_query($conn,"SELECT * FROM subjects");
+$teachers=mysqli_query($con,"SELECT * FROM teachers");
+$subjects=mysqli_query($con,"SELECT * FROM subjects");
 ?>
 
 <!DOCTYPE html>

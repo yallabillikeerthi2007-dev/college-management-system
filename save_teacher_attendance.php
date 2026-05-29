@@ -1,5 +1,5 @@
 <?php
-include "db_connect.php";
+include "db.php";
 
 if(isset($_POST["save"])){
     $dept = $_POST["dept"];
@@ -20,7 +20,7 @@ if(isset($_POST["save"])){
 
         $insert = "INSERT INTO teacher_attendance (teacher_id,teacher_name,dept,date,status) 
                    VALUES ('$teacher_id','$teacher_name','$dept','$date','$status')";
-        mysqli_query($conn, $insert);
+        mysqli_query($con, $insert);
     }
 
     if($duplicate){

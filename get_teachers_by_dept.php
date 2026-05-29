@@ -1,5 +1,5 @@
 <?php
-include "db_connect.php";
+include "db.php";
 $dept = $_GET["dept"];
 $result = mysqli_query($conn, "SELECT * FROM teachers WHERE dept='$dept'");
 

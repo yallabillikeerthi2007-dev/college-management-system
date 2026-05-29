@@ -1,6 +1,6 @@
 <?php
 error_reporting(0);
-include "db_connect.php";
+include "db.php";
 
 /* UPDATE TEACHER */
 
@@ -24,7 +24,7 @@ if(isset($_POST["update"]))
 
     WHERE id='$id'";
 
-    mysqli_query($conn,$update);
+    mysqli_query($con,$update);
 
     echo "<script>
     alert('Teacher Updated Successfully');

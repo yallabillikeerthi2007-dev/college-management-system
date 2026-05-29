@@ -1,7 +1,7 @@
 ﻿<?php
-include "db_connect.php";
+include "db.php";
 
-$attendance = mysqli_query($conn,
+$attendance = mysqli_query($con,
 "SELECT * FROM teacher_attendance
  ORDER BY date DESC");
 ?>

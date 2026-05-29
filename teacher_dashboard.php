@@ -7,13 +7,13 @@ if(!isset($_SESSION["teacher_logged_in"]))
     exit();
 }
 
-include "db_connect.php";
+include "db.php";
 
 /* FETCH TEACHER DETAILS */
 
 $teacher_id=$_SESSION["teacher_id"];
 
-$result=mysqli_query($conn,
+$result=mysqli_query($con,
 "SELECT * FROM teachers
  WHERE teacher_id='$teacher_id'");
 
@@ -21,14 +21,14 @@ $teacher=mysqli_fetch_assoc($result);
 
 /* FETCH ATTENDANCE */
 
-$attendance=mysqli_query($conn,
+$attendance=mysqli_query($con,
 "SELECT * FROM teacher_attendance
  WHERE teacher_id='$teacher_id'
  ORDER BY date DESC");
 
 /* FETCH SUBJECTS */
 
-$subjects=mysqli_query($conn,
+$subjects=mysqli_query($con,
 "SELECT * FROM subjects
  WHERE teacher_id='$teacher_id'");
 ?>

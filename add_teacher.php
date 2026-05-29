@@ -1,6 +1,6 @@
 <?php
 error_reporting(0);
-include "db_connect.php";
+include "db.php";
 
 if(isset($_POST["add"]))
 {
@@ -22,12 +22,12 @@ if(isset($_POST["add"]))
     '$phone',
     '$email')";
 
-    mysqli_query($conn,$insert);
+    mysqli_query($con,$insert);
 
     echo "<script>alert('Teacher Added Successfully')</script>";
 }
 
-$teachers=mysqli_query($conn,"SELECT * FROM teachers");
+$teachers=mysqli_query($con,"SELECT * FROM teachers");
 ?>
 
 <!DOCTYPE html>

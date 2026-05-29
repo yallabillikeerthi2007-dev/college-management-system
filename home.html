@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="style1.css">
+</head>
+
+<body>
+
+    <div class="hero">
+
+        <nav>
+
+            <img src="./logo1.png" class="logo" alt="College Logo">
+
+            <div class="menu-icon" onclick="toggleMenu()">
+                <i class='bx bx-menu'></i>
+            </div>
+
+            <ul id="menulist">
+                <li><a href="home.html">HOME</a></li>
+                <li><a href="courses.html" onclick="openCourses()">COURSES</a></li>
+                <li><a href="facilities.html">FACILITIES</a></li>
+                <li><a href="help.html" onclick="openHelp()">HELP</a></li>
+            </ul>
+
+            <a href="loginpage.html">
+                <button>Login/Register</button>
+            </a>
+
+        </nav>
+
+        <div class="content">
+
+            <h1>
+                Government Polytechnic <br>
+                Anakapalle
+            </h1>
+
+            <a href="#" onclick="openCourses()">Explore</a>
+
+        </div>
+
+    </div>
+
+    <div class="courses-drawer" id="coursesDrawer">
+
+        <div class="drawer-handle" onclick="closeCourses()"></div>
+
+        <h1>Our Courses</h1>
+
+        <p class="courses-subtitle">
+            Explore our diploma courses at Government Polytechnic Anakapalle
+        </p>
+
+        <div class="courses-grid">
+
+            <div class="course-card">
+
+                <img src="./cme.png" alt="Computer Engineering">
+
+                <div class="course-body">
+
+                    <h3>Computer Engineering</h3>
+
+                    <a href="#">View Course</a>
+
+                </div>
+
+            </div>
+
+            <div class="course-card">
+
+                <img src="./ece.png" alt="ECE">
+
+                <div class="course-body">
+
+                    <h3>Electronics and Communication Engineering</h3>
+
+                    <a href="#">View Course</a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="drawer-help">
+
+            <h3>Need Help?</h3>
+
+            <p>
+                Contact us for more information about admissions and courses.
+            </p>
+
+            <div class="help-links">
+
+                <a href="help.html">Go to Help Page</a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <script>
+
+        function toggleMenu() {
+            document.getElementById("menulist").classList.toggle("open");
+        }
+
+        function openCourses() {
+            document.getElementById("coursesDrawer").classList.add("active");
+        }
+
+        function closeCourses() {
+            document.getElementById("coursesDrawer").classList.remove("active");
+        }
+
+        function openHelp() {
+            window.location.href = "help.html";
+        }
+
+        function toggleAdmin(e) {
+
+            e.stopPropagation();
+
+            var menu = document.getElementById('adminMenu');
+
+            if (menu) {
+
+                menu.style.display =
+                    (menu.style.display === 'block')
+                        ? 'none'
+                        : 'block';
+            }
+        }
+
+        document.addEventListener('click', function (e) {
+
+            if (!e.target.closest('.dropdown-wrap')) {
+
+                var menu = document.getElementById('adminMenu');
+
+                if (menu) {
+                    menu.style.display = 'none';
+                }
+            }
+        });
+
+    </script>
+
+</body>
+
+</html>

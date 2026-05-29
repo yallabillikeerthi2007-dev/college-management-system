@@ -1,34 +1,67 @@
 <?php
-include 'db.php';
-$role   = $_POST['role'];
-$uname  = $_POST['uname'];
-$pass   = $_POST['password'];
 
-// ADMIN LOGIN
-if ($role == "Admin") {
-    $sql = "SELECT * FROM admin WHERE username='$uname' AND password='$pass'";
-    $result = mysqli_query($con, $sql);
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
-    if (mysqli_num_rows($result) > 0) {
-        header("Location: admin_dashboard.php");
-        exit;
-    } else {
-        echo "Invalid Admin Details";
+session_start();
+
+include 'dbl.php';
+
+if(isset($_POST['login'])){
+
+    $username = trim($_POST['username']);
+
+    $password = trim($_POST['password']);
+
+    if(empty($username) || empty($password)){
+
+        die("Please fill all fields");
+
     }
-}
 
-// STUDENT LOGIN
-else if ($role == "Student") {
-    $sql = "SELECT * FROM students WHERE Name='$uname' AND Id='$pass'";
-    $result = mysqli_query($con, $sql);
+    $stmt = $conn->prepare("SELECT * FROM students WHERE username=?");
 
-    if (mysqli_num_rows($result) > 0) {
-        header("Location: student_dashboard.php?id=$pass");
-        exit;
-    } else {
-        echo "Invalid Student Details";
+    if(!$stmt){
+
+        die("Query Failed");
     }
-}
 
-mysqli_close($con);
+    $stmt->bind_param("s", $username);
+
+    $stmt->execute();
+
+    $result = $stmt->get_result();
+
+    if($result->num_rows > 0){
+
+        $row = $result->fetch_assoc();
+
+        if(password_verify($password, $row['password'])){
+
+            $_SESSION['student_logged_in'] = true;
+
+            $_SESSION['student_username'] = $row['username'];
+
+            $_SESSION['student_pin'] = $row['pin'];
+
+            $_SESSION['student_name'] = $row['name'];
+
+            header("Location: dashboard.php");
+
+            exit();
+
+        }else{
+
+            die("Wrong Password");
+        }
+
+    }else{
+
+        die("Student Not Found");
+    }
+
+}else{
+
+    die("Invalid Request");
+}
 ?>
